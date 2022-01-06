@@ -14,7 +14,9 @@ public class RegistrationPage {
      SelenideElement
             firstNameInput = $("#firstName"),
             lastNameInput = $("#lastName"),
-            resultsTable = $(".table-responsive");
+            resultsTable = $(".table-responsive"),
+            userEmailInput  = $("#userEmail");
+
      public CalendarComponent calendarComponent = new CalendarComponent();
 
 
@@ -32,6 +34,22 @@ public class RegistrationPage {
         lastNameInput.setValue(value);
         return this;
     }
+    public RegistrationPage genderCheck  (){
+        $("#genterWrapper").$(byText("Other")).click();
+        return this;
+    }
+    public RegistrationPage typeUserEmail (String value) {
+        userEmailInput.setValue(value);
+        return this;
+    }
+
+    public RegistrationPage userNumber (){
+        $("#userNumber").setValue("7733333333");
+        return this;
+    }
+
+
+
 
     public RegistrationPage checkResultsValue(String key, String value) {
 

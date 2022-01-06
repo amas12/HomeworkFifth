@@ -13,6 +13,7 @@ import org.openqa.selenium.By;
 import static com.codeborne.selenide.Selectors.byText;
 
 import java.io.File;
+import java.util.Locale;
 
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Condition.visible;
@@ -28,6 +29,8 @@ public class StudentRegistrationFormPageObjectsTest {
     String firstName = faker.name().firstName();
     String lastName = faker.name().lastName();
     String streetAddress = faker.address().streetAddress();
+    String userEmail = faker.internet().emailAddress();
+
 
 
     @BeforeAll
@@ -40,13 +43,13 @@ public class StudentRegistrationFormPageObjectsTest {
     void fillFormTest() throws InterruptedException {
 
 
-        registrationPage.openPage();
-        registrationPage.typeFirstName(firstName);
-        registrationPage.typeLastName(lastName);
-        $("#userEmail").setValue(userEmail);
-        $(".custom-control").click();
-        $("#userNumber").setValue("7674635847");
-        registrationPage.calendarComponent.setDate();
+        registrationPage.openPage()
+        .typeFirstName(firstName)
+        .typeLastName(lastName)
+        .typeUserEmail(userEmail)
+        .genderCheck()
+        .userNumber()
+        .calendarComponent.setDate();
         $("#hobbiesWrapper").click();
         $("#subjectsInput").setValue("English").pressEnter();
         $("#uploadPicture").uploadFromClasspath("img/1.jpg");
@@ -65,9 +68,9 @@ public class StudentRegistrationFormPageObjectsTest {
                 text("Male"),text("7674635847"),text("12 April,1999"),
                text("English"),text("Reading"),text("1.jpg"),text("USA"),text("Haryana Panipat"));первый варик*/
         registrationPage.checkResultsValue("Student Name", firstName + " " +lastName)
-                .checkResultsValue("Student Email", "test@tets.test")
-                .checkResultsValue("Gender", "Male")
-                .checkResultsValue("Mobile", "7674635847")
+                .checkResultsValue("Student Email", userEmail)
+                .checkResultsValue("Gender", "Other")
+                .checkResultsValue("Mobile", "7733333333")
                 .checkResultsValue("Date of Birth", "30 July,2008")
                 .checkResultsValue("Subjects", "English")
                 .checkResultsValue("Hobbies", "Reading")
